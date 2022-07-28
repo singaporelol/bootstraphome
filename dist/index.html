@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap</title>
+
+    <script src="./main.js"></script>
+    <script>
+      window.onload = function () {};
+    </script>
+    <link rel="stylesheet" href="./assets/css/all.css" />
+    <style></style>
+  </head>
+  <body>
+    <!-- 头部区域 -->
+    <header class="navbar navbar-expand-md header w-100 navbar-dark">
+      <div class="container-fluid">
+        <div class="navbar-brand">
+          <picture>
+            <source
+              media="(max-width: 768px)"
+              srcset="assets/img/logo_scroll.png"
+            />
+            <img
+              class="img-fluid w-100"
+              alt="alt text for all sources"
+              src="assets/img/logo_default.png"
+            />
+          </picture>
+        </div>
+        <button
+          class="navbar-toggler menu-bar"
+          data-bs-toggle="collapse"
+          data-bs-target="#menu-nav-group"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="menu-nav-group"
+        >
+          <ul class="navbar-nav fw-bold">
+            <li class="nav-item">
+              <a href="#" class="nav-link">HOME</a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link">ABOUT</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">FEATURES</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">TEAM</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!-- 轮播图 -->
+    <div id="carousel-nyp" class="carousel slide" data-bs-ride="carousel">
+      <ol class="carousel-indicators">
+        <li
+          data-bs-target="#carousel-nyp"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="First slide"
+        ></li>
+        <li
+          data-bs-target="#carousel-nyp"
+          data-bs-slide-to="1"
+          aria-label="Second slide"
+        ></li>
+        <li
+          data-bs-target="#carousel-nyp"
+          data-bs-slide-to="2"
+          aria-label="Third slide"
+        ></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <div class="bg-img-1 d-flex align-items-center">
+            <div class="card-body offset-2 animate-slide-1">
+              <h3 class="text-white" style="font-size: 40px">THE NEW WAY</h3>
+              <p class="text-info fs-5 pt-4">TO MANAGER YOUR</p>
+              <p class="text-info fs-5" style="margin-top: -1rem">
+                SMALL TO ENTERPRISE BUSINESS
+              </p>
+              <span class="btn btn-outline-light">LEARN MORE</span>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="bg-img-2 d-flex align-items-center">
+            <div class="card-body offset-2 animate-slide-1">
+              <h3 class="text-white" style="font-size: 40px">ULTIMATE APPS</h3>
+              <h3 class="text-white" style="font-size: 40px">FOR BUSINESS</h3>
+              <span class="d-block text-white-50"
+                >AVAILABLE IN: ANDROID & IOS</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="bg-img-3 d-flex align-items-center">
+            <div
+              class="card-body animate-slide-1 d-flex align-items-center flex-column"
+            >
+              <h3 class="text-white" style="font-size: 40px">
+                LET US SHOW YOU
+              </h3>
+              <h3 class="mt-4 text-nyp-red" style="font-size: 40px">
+                A FEW THINGS
+              </h3>
+              <span class="mt-4 btn d-block text-white btn-outline-light"
+                >LEARN MORE</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carousel-nyp"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <a
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carousel-nyp"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a> -->
+    </div>
+    <!-- About展示区域 -->
+    <div
+      class="metro-region row d-flex justify-content-between container-fluid"
+    >
+      <div class="card col-md-4 border-0 my-5 px-2">
+        <i
+          class="fa-regular fa-clock text-center text-info"
+          style="font-size: 10rem"
+        ></i>
+        <div class="card-body text-center">
+          <h5 class="card-title text-nyp-grey fw-bold mt-4">
+            Metronic Is Time Saver
+          </h5>
+          <p class="card-text text-nyp-grey pt-2">
+            Lorem ipsum dolor consetuer erat votpat dolore
+          </p>
+        </div>
+      </div>
+      <div class="card col-md-4 border-0 my-5 px-2">
+        <i
+          class="fa-regular fa-life-ring text-center text-success"
+          style="font-size: 10rem"
+        ></i>
+        <div class="card-body text-center">
+          <h5 class="card-title text-nyp-grey fw-bold mt-4">
+            Metronic Is Time Saver
+          </h5>
+          <p class="card-text text-nyp-grey pt-2">
+            Lorem ipsum dolor consetuer erat votpat dolore
+          </p>
+        </div>
+      </div>
+      <div class="card col-md-4 border-0 my-5 px-2">
+        <i
+          class="fa-regular fa-lightbulb text-center text-nyp-red"
+          style="font-size: 10rem"
+        ></i>
+        <div class="card-body text-center">
+          <h5 class="card-title text-nyp-grey fw-bold mt-4">
+            Metronic Is Time Saver
+          </h5>
+          <p class="card-text text-nyp-grey pt-2">
+            Lorem ipsum dolor consetuer erat votpat dolore
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Main Feature区域 -->
+    <div class="main-feature container-fluid">
+      <div class="main-feature-head d-flex flex-column">
+        <h2 class="text-nyp-grey text-center">Metronic Main Features</h2>
+        <p class="text-muted text-center mt-2">
+          TO TRY THE MOST ADVANCED BUSINESS
+        </p>
+        <div
+          class="bg-nyp-red align-self-center mt-4"
+          style="width: 80px; height: 4px"
+        ></div>
+      </div>
+      <div class="main-feature-content">
+        <div class="row">
+          <div class="card my-5 col-md-6 d-flex flex-row border-0">
+            <div class="col-7 main-feature-content-image-1"></div>
+            <div class="col-5 pt-4">
+              <h3 class="card-title text-nyp-grey">Full Sass Support</h3>
+              <p class="card-text text-muted mt-3">
+                Lorem niam ipsum dolor sit ammet adipiscing et suitem elit et
+                nonuy nibh elit niam dolor
+              </p>
+            </div>
+          </div>
+          <div class="card my-5 col-md-6 d-flex flex-row border-0">
+            <div class="col-7 main-feature-content-image-2"></div>
+            <div class="col-5 pt-4">
+              <h3 class="card-title text-nyp-grey">Full Sass Support</h3>
+              <p class="card-text text-muted mt-3">
+                Lorem niam ipsum dolor sit ammet adipiscing et suitem elit et
+                nonuy nibh elit niam dolor
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-feature-content">
+        <div class="row">
+          <div class="card my-5 col-md-6 d-flex flex-row border-0">
+            <div class="col-7 main-feature-content-image-3"></div>
+            <div class="col-5 pt-4">
+              <h3 class="card-title text-nyp-grey">Full Sass Support</h3>
+              <p class="card-text text-muted mt-3">
+                Lorem niam ipsum dolor sit ammet adipiscing et suitem elit et
+                nonuy nibh elit niam dolor
+              </p>
+            </div>
+          </div>
+          <div class="card my-5 col-md-6 d-flex flex-row border-0">
+            <div class="col-7 main-feature-content-image-4"></div>
+            <div class="col-5 pt-4">
+              <h3 class="card-title text-nyp-grey">Full Sass Support</h3>
+              <p class="card-text text-muted mt-3">
+                Lorem niam ipsum dolor sit ammet adipiscing et suitem elit et
+                nonuy nibh elit niam dolor
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Our Team区域 -->
+    
+  </body>
+</html>

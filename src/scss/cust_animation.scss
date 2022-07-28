@@ -1,0 +1,22 @@
+.animate-slide-1 p,h3 {
+  animation-duration: 1s !important;
+  animation-name: slidedown;
+}
+.animate-slide-1 span{
+  animation-duration: 1s !important;
+  animation-name: slideup;
+}
+@keyframes slidedown {
+  from {
+    transform: translateY(-30px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes slideup {
+  0% {
+    transform: translateY(30px);
+  }
+  
+}
