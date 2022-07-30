@@ -30,6 +30,8 @@
 $text-color: #3f5263;
 $text-color-hover: #bf5757;
 $text-carousel-content: #80d0de;
+$text-content-color: #8693a7;
+$text-title-color: #d4d9de;
 // Import all of Bootstrap's CSS
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
@@ -112,6 +114,89 @@ header {
       background-position: center center;
       background-repeat: no-repeat;
       min-height: 100px;
+    }
+  }
+}
+
+.ourteam {
+  width: 100%;
+  background: url("../assets/img/bg/bg_parallax.jpg") center center / cover;
+  .ourteam-header {
+    padding-top: 5rem;
+  }
+  .ourteam-body {
+    .team-member-1 {
+      background: url("../assets/img/member/member1.png") no-repeat center
+        center / contain;
+    }
+    .team-member-2 {
+      background: url("../assets/img/member/member2.png") no-repeat center
+        center / contain;
+    }
+    .team-member-3 {
+      background: url("../assets/img/member/member3.png") no-repeat center
+        center / contain;
+    }
+    .team-member-4 {
+      background: url("../assets/img/member/member4.png") no-repeat center
+        center / contain;
+    }
+    .team-member-5 {
+      background: url("../assets/img/member/member5.png") no-repeat center
+        center / contain;
+    }
+    .team-member-6 {
+      background: url("../assets/img/member/member6.png") no-repeat center
+        center / contain;
+    }
+    div[class*="team-member"] {
+      height: 220px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      .team-member-cover {
+        background: rgba(129, 129, 129, 0.1);
+        position: absolute;
+        left: auto;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      &:hover {
+        .team-member-cover {
+          background: rgba(47, 60, 72, 0.5);
+          transition: all cubic-bezier(0.7, 1, 0.7, 1) 0.3s;
+        }
+        .team-member-desc {
+          height: 3rem;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          transform: translate3d(0, 0, 0);
+          transition: all linear 0.3s;
+        }
+      }
+      .team-member-desc {
+        height: 3rem;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        transform: translate3d(0, 100%, 0);
+        transition: all linear 0.3s;
+      }
+    }
+    .ourteam-content-wraper {
+      .ourteam-content {
+        background: rgba(129, 129, 129, 0.1);
+        margin: 0 10px 0 0;
+        padding: 10px;
+        h5 {
+          color: $text-title-color;
+        }
+        p {
+          color: $text-content-color;
+        }
+      }
     }
   }
 }
