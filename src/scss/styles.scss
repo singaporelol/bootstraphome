@@ -36,9 +36,11 @@ $text-title-color: #d4d9de;
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
-$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$custom-colors: (
-  "nyp-dark": #2c3a46,
+$font-family-sans-serif: "Helvetica Neue",
+Helvetica,
+Arial,
+sans-serif;
+$custom-colors: ("nyp-dark": #2c3a46,
   "info": #80d0de,
   "nyp-red": #bf5757,
   "nyp-grey": #3f5263,
@@ -48,27 +50,34 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 @import "~bootstrap/scss/bootstrap";
 @import url("~bootstrap-icons/font/bootstrap-icons.css");
 @import url("./cust_animation.scss");
+
 header {
   position: absolute !important;
   z-index: 1;
+
   .menu-bar {
     border: 0;
+
     &:focus {
       outline: none;
       box-shadow: none;
     }
+
     i {
       color: $text-color;
     }
   }
+
   #menu-nav-group {
     .nav-link.active {
       color: $text-color-hover;
     }
-    ul > li > a {
+
+    ul>li>a {
       font-size: small;
       color: #fff;
       font-size: 16px;
+
       &:hover {
         color: $text-color-hover !important;
       }
@@ -79,35 +88,44 @@ header {
 #carousel-nyp {
   height: 30rem;
   overflow: hidden;
+
   div[class|="bg-img"] {
     height: 30rem;
     background-size: cover;
     background-position: center center;
   }
+
   .bg-img-1 {
     background-image: url("../assets/img/bg/bg_slider1.jpg");
   }
+
   .bg-img-2 {
     background-image: url("../assets/img/bg/bg_slider2.jpg");
   }
+
   .bg-img-3 {
     background-image: url("../assets/img/bg/bg_slider3.jpg");
   }
 }
+
 .main-feature {
   .main-feature-content {
     .main-feature-content-image-1 {
       background-image: url("../assets/img/widgets/screen1.png");
     }
+
     .main-feature-content-image-2 {
       background-image: url("../assets/img/widgets/screen2.png");
     }
+
     .main-feature-content-image-3 {
       background-image: url("../assets/img/widgets/screen3.png");
     }
+
     .main-feature-content-image-4 {
       background-image: url("../assets/img/widgets/screen4.png");
     }
+
     div[class*="main-feature-content-image"] {
       // background-color: yellowgreen;
       background-size: contain;
@@ -121,39 +139,42 @@ header {
 .ourteam {
   width: 100%;
   background: url("../assets/img/bg/bg_parallax.jpg") center center / cover;
+
   .ourteam-header {
     padding-top: 5rem;
   }
+
   .ourteam-body {
     .team-member-1 {
-      background: url("../assets/img/member/member1.png") no-repeat center
-        center / contain;
+      background: url("../assets/img/member/member1.png") no-repeat center center / contain;
     }
+
     .team-member-2 {
-      background: url("../assets/img/member/member2.png") no-repeat center
-        center / contain;
+      background: url("../assets/img/member/member2.png") no-repeat center center / contain;
     }
+
     .team-member-3 {
-      background: url("../assets/img/member/member3.png") no-repeat center
-        center / contain;
+      background: url("../assets/img/member/member3.png") no-repeat center center / contain;
     }
+
     .team-member-4 {
-      background: url("../assets/img/member/member4.png") no-repeat center
-        center / contain;
+      background: url("../assets/img/member/member4.png") no-repeat center center / contain;
     }
+
     .team-member-5 {
-      background: url("../assets/img/member/member5.png") no-repeat center
-        center / contain;
+      background: url("../assets/img/member/member5.png") no-repeat center center / contain;
     }
+
     .team-member-6 {
-      background: url("../assets/img/member/member6.png") no-repeat center
-        center / contain;
+      background: url("../assets/img/member/member6.png") no-repeat center center / contain;
     }
+
     div[class*="team-member"] {
       height: 220px;
       position: relative;
       cursor: pointer;
       overflow: hidden;
+
       .team-member-cover {
         background: rgba(129, 129, 129, 0.1);
         position: absolute;
@@ -162,11 +183,13 @@ header {
         bottom: 0;
         width: 100%;
       }
+
       &:hover {
         .team-member-cover {
           background: rgba(47, 60, 72, 0.5);
           transition: all cubic-bezier(0.7, 1, 0.7, 1) 0.3s;
         }
+
         .team-member-desc {
           height: 3rem;
           position: absolute;
@@ -176,6 +199,7 @@ header {
           transition: all linear 0.3s;
         }
       }
+
       .team-member-desc {
         height: 3rem;
         position: absolute;
@@ -185,14 +209,17 @@ header {
         transition: all linear 0.3s;
       }
     }
+
     .ourteam-content-wraper {
       .ourteam-content {
         background: rgba(129, 129, 129, 0.1);
         margin: 0 10px 0 0;
         padding: 10px;
+
         h5 {
           color: $text-title-color;
         }
+
         p {
           color: $text-content-color;
         }
@@ -205,13 +232,16 @@ header {
 @media screen and (max-width: 768px) {
   header {
     position: static !important;
+
     #menu-nav-group {
       .nav-link.active {
         color: $text-color-hover;
       }
-      ul > li > a {
+
+      ul>li>a {
         font-size: small;
         color: $text-color;
+
         // font-weight: bold;
         &:hover {
           color: $text-color-hover !important;
@@ -219,4 +249,25 @@ header {
       }
     }
   }
+
+  .ourteam {
+    .ourteam-content-wraper {
+      padding: 0;
+      margin: 0;
+
+      .ourteam-content {
+        padding: 0px 0 0 6px !important;
+        margin: 0px 0 0 6px !important;
+
+        h5 {
+          color: $text-title-color;
+        }
+
+        p {
+          color: $text-content-color;
+        }
+      }
+    }
+  }
+
 }
