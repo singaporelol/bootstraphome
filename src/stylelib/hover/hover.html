@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hover</title>
+  <!-- 鼠标停在图片上，下方弹出遮罩层和描述信息 -->
+  <style>
+    .box {
+      /* 可以去掉 */
+      margin: 0 auto;
+      /* background-color: yellowgreen; */
+      /* 开始 */
+      height: 220px;
+      width: 220px;
+      background: yellowgreen url("member1.png") no-repeat center center / cover;
+      position: relative;
+      transform: translate3d(0, 0, 0);
+      transition: all linear 1s;
+    }
+
+    /* .cover {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0);
+    } */
+
+    .box:hover .cover {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.4);
+      transition: all linear 1s;
+    }
+
+    .box:not(:hover) .cover {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      bottom: 0;
+      transition: all linear 1s;
+    }
+
+    /* 显示文字 */
+    .content {
+      position: absolute;
+      bottom: -30%;
+      height: 30%;
+      width: 100%;
+      background-color: pink;
+      opacity: 0.5;
+    }
+
+    .box:hover .content {
+      transform: translate3d(0, -100%, 0);
+      transition: all linear 0.5s;
+    }
+
+    .box:not(:hover) .content {
+      transition: all linear 0.5s;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="cover"></div>
+    <div class="content">
+      我是文字动画
+    </div>
+
+  </div>
+
+</body>
+
+</html>
