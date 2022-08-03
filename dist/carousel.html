@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试</title>
+  <script src="./main.js"></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .banner {
+      width: 600px;
+      height: 300px;
+      margin: 0 auto;
+      background-color: #ccc;
+      overflow: hidden;
+    }
+
+    .carousel {
+      width: 2400px;
+      height: inherit;
+      display: flex;
+    }
+
+    .img {
+      width: 600px;
+      height: inherit;
+
+
+    }
+
+    .img:nth-child(1) {
+      background: #ccc url("assets/img/bg/bg_slider1.jpg") no-repeat center center/cover;
+    }
+
+    .img:nth-child(2) {
+      background: url("assets/img/bg/bg_slider2.jpg") no-repeat center center / cover;
+    }
+
+    .img:nth-child(3) {
+      background: url("assets/img/bg/bg_slider3.jpg") no-repeat center center / cover;
+    }
+
+    .img:nth-child(4) {
+      background: url("assets/img/bg/bg_slider1.jpg") no-repeat center center / cover;
+    }
+  </style>
+  <script>
+    /**
+     * 轮播图原理：
+     * 一、实现主体功能：
+     *    1、设置幕布宽为所有图片的宽度
+     *    2、让图片横向排列，设overflow:hidden
+     *    3、设置left-magin来让图片移动
+     *    4、设置函数停止时间，让显示整张图片以后停止1.2s
+     * 
+     * 二、实现拓展功能：
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+
+    window.onload = () => {
+      let left = 0;
+
+
+      //调用自动轮播
+      slide()
+
+      function slide() {
+        if (left <= -1800) {
+          left = 0;
+        }
+        document.querySelector('.carousel').style.marginLeft = left + "px"; //实现换完图片，暂停1.2s
+        let n = left % 600 == 0 ? 1200 : 10;
+        left -= 10;
+        setTimeout(function () {
+          slide()
+        }, n)
+      }
+
+      //实现mouseover图片暂停
+      let imgElementsList = document.getElementsByClassName("img");
+
+      function mouseoverHandler() {
+        let imgElementsList = document.getElementsByClassName("img");
+
+      }
+
+    }
+  </script>
+</head>
+
+<body>
+  <div class="banner">
+    <div class="carousel">
+      <div class="img"></div>
+      <div class="img"></div>
+      <div class="img"></div>
+      <div class="img"></div>
+    </div>
+  </div>
+</body>
+
+</html>
