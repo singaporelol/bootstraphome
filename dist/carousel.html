@@ -1,124 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>测试</title>
-    <script src="./main.js"></script>
-    <style>
-      * {
-        padding: 0;
-        margin: 0;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>测试</title>
+  <script src="./main.js"></script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .banner {
+      width: 600px;
+      height: 300px;
+      margin: 0 auto;
+      background-color: #ccc;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel {
+      width: 2400px;
+      height: inherit;
+      display: flex;
+    }
+
+    .img {
+      width: 600px;
+      height: inherit;
+    }
+
+    .img:nth-child(1) {
+      background: #ccc url("assets/img/bg/bg_slider1.jpg") no-repeat center center/cover;
+    }
+
+    .img:nth-child(2) {
+      background: url("assets/img/bg/bg_slider2.jpg") no-repeat center center / cover;
+    }
+
+    .img:nth-child(3) {
+      background: url("assets/img/bg/bg_slider3.jpg") no-repeat center center / cover;
+    }
+
+    .img:nth-child(4) {
+      background: url("assets/img/bg/bg_slider1.jpg") no-repeat center center / cover;
+    }
+
+    /* 左边按钮 */
+    .left,
+    .right {
+      font-weight: bold;
+      font-size: 30px;
+      height: 30px;
+      width: 30px;
+      line-height: 30px;
+      padding-left: 4px;
+      background-color: #ccc;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .right {
+      right: 0;
+    }
+  </style>
+  <script>
+    /**
+     * 轮播图原理：
+     * 一、实现主体功能：
+     *    1、设置幕布宽为所有图片的宽度
+     *    2、让图片横向排列，设overflow:hidden
+     *    3、设置left-magin来让图片移动
+     *    4、设置函数停止时间，让显示整张图片以后停止1.2s
+     *
+     * 二、实现拓展功能：
+     *  功能拓展1：鼠标移动到轮播图上以后，显示鼠标悬浮的轮播图，轮播图停止移动
+     *            即：计算位置，清楚timer
+     *  功能拓展2：鼠标移出轮播图，轮播图自动开始轮播
+     *            即：清楚timer，调用轮播funciton
+     *  功能拓展3：左右按钮切换图片
+     *  
+     * 
+     * 
+     * 
+     */
+
+    window.onload = () => {
+      let timer = null;
+      let left = 0;
+      const carousel = document.querySelector(".carousel");
+      const banner = document.querySelector(".banner");
+      const leftBtn = document.querySelector(".left")
+      const rightBtn = document.querySelector(".right")
+      //调用自动轮播
+      slide();
+
+      //主要功能：轮播
+      // function slide() {
+      //   if (left <= -1800) {
+      //     left = 0;
+      //   }
+      //   carousel.style.marginLeft = left + "px"; //实现换完图片，暂停1.2s
+      //   let n = left % 600 == 0 ? 1200 : 10;
+      //   left -= 30;
+      //   timer = setTimeout(function () {
+      //     slide();
+      //   }, n);
+      // }
+
+      function slide() {
+
+        // let n = left % 600 == 0 ?
+        //   1200 : 10;
+        //拿到当前的left
+        let marginLeft = carousel.style.marginLeft.slice(0, -2) || 0;
+        // debugger;
+        timer = setInterval(function () {
+          marginLeft = marginLeft <= -1800 ? 0 : marginLeft;
+
+          console.log(marginLeft)
+          carousel.style.marginLeft = marginLeft + "px"; //实现换完图片，暂停1.2s
+
+          marginLeft -= 30;
+        }, 50)
       }
 
-      .banner {
-        width: 600px;
-        height: 300px;
-        margin: 0 auto;
-        background-color: #ccc;
-        overflow: hidden;
+      //功能拓展1：鼠标移动到轮播图上以后，显示鼠标悬浮的轮播图，轮播图停止移动
+      banner.addEventListener("mouseenter", function (e) {
+        //marginleft 为0是第一张照片
+        //0为第一张照片 -1 - -599第一和第2同时存在
+        //-600为第二张照片
+        //-1200是第三张照片- -1800
+        console.log(e)
+        clearTimer();
+        // debugger;
+        let index = +e.target.getAttribute("index");
+        carousel.style.marginLeft = index * -600 + "px";
+
+      });
+      // banner.addEventListener("mouseover", function () {
+      //   clearTimer();
+      // })
+      //功能拓展2：鼠标移出轮播图，轮播图自动开始轮播
+      // banner.addEventListener("mouseout", function (e) {
+      //   clearTimer();
+      //   slide();
+      // });
+
+      //功能拓展3：鼠标点击左边按钮切换图片
+      leftBtn.addEventListener("click", function () {
+        let marginLeft = carousel.style.marginLeft.slice(0, -2);
+        // left = marginLeft;
+        let prevInd = Math.floor(-marginLeft / 600) - 1;
+        let index = prevInd == -1 ? 2 : prevInd;
+        carousel.style.marginLeft = index * (-600) + "px";
+      })
+      rightBtn.addEventListener("click", function () {
+        let marginLeft = carousel.style.marginLeft.slice(0, -2);
+        // left = marginLeft;
+        let nextInd = Math.floor(-marginLeft / 600) + 1;
+        let index = nextInd == 3 ? 0 : nextInd;
+        carousel.style.marginLeft = index * (-600) + "px";
+      })
+
+      function clearTimer() {
+        clearInterval(timer);
+        timer = null;
       }
+    };
+  </script>
+</head>
 
-      .carousel {
-        width: 2400px;
-        height: inherit;
-        display: flex;
-      }
-
-      .img {
-        width: 600px;
-        height: inherit;
-      }
-
-      .img:nth-child(1) {
-        background: #ccc url("assets/img/bg/bg_slider1.jpg") no-repeat center
-          center/cover;
-      }
-
-      .img:nth-child(2) {
-        background: url("assets/img/bg/bg_slider2.jpg") no-repeat center center /
-          cover;
-      }
-
-      .img:nth-child(3) {
-        background: url("assets/img/bg/bg_slider3.jpg") no-repeat center center /
-          cover;
-      }
-
-      .img:nth-child(4) {
-        background: url("assets/img/bg/bg_slider1.jpg") no-repeat center center /
-          cover;
-      }
-    </style>
-    <script>
-      /**
-       * 轮播图原理：
-       * 一、实现主体功能：
-       *    1、设置幕布宽为所有图片的宽度
-       *    2、让图片横向排列，设overflow:hidden
-       *    3、设置left-magin来让图片移动
-       *    4、设置函数停止时间，让显示整张图片以后停止1.2s
-       *
-       * 二、实现拓展功能：
-       *  功能拓展1：鼠标移动到轮播图上以后，显示鼠标悬浮的轮播图，轮播图停止移动
-       *
-       *
-       *
-       *
-       */
-
-      window.onload = () => {
-        let left = 0;
-        let timer;
-        const carousel = document.querySelector(".carousel");
-        //调用自动轮播
-        slide();
-
-        function slide() {
-          if (left <= -1800) {
-            left = 0;
-          }
-          carousel.style.marginLeft = left + "px"; //实现换完图片，暂停1.2s
-          let n = left % 600 == 0 ? 1200 : 10;
-          left -= 5;
-          timer = setTimeout(function () {
-            slide();
-          }, n);
-        }
-
-        //功能拓展1：鼠标移动到轮播图上以后，显示鼠标悬浮的轮播图，轮播图停止移动
-        carousel.addEventListener("mouseover", function (e) {
-          //marginleft 为0是第一张照片
-          //0为第一张照片 -1 - -599第一和第2同时存在
-          //-600为第二张照片
-          //-1200是第三张照片- -1800
-          let index = +e.target.getAttribute("index");
-          carousel.style.marginLeft = index * -600 + "px";
-          clearTimer();
-        });
-        //功能拓展2：鼠标移出轮播图，轮播图自动开始轮播
-        carousel.addEventListener("mouseout", function (e) {
-          clearTimer();
-          slide();
-        });
-
-        function clearTimer() {
-          clearTimeout(timer);
-          timer = null;
-        }
-      };
-    </script>
-  </head>
-
-  <body>
-    <div class="banner">
-      <div class="carousel">
-        <div index="0" class="img"></div>
-        <div index="1" class="img"></div>
-        <div index="2" class="img"></div>
-        <div index="3" class="img"></div>
-      </div>
+<body>
+  <div class="banner">
+    <div class="carousel">
+      <div index="0" class="img"></div>
+      <div index="1" class="img"></div>
+      <div index="2" class="img"></div>
+      <div index="3" class="img"></div>
     </div>
-  </body>
+    <i class="left">&lt;</i>
+    <i class="right">&gt;</i>
+  </div>
+</body>
+
 </html>
