@@ -44,7 +44,10 @@ $custom-colors: ("nyp-dark": #2c3a46,
   "info": #80d0de,
   "nyp-red": #bf5757,
   "nyp-grey": #3f5263,
-);
+  "nyp-text-content-color":#8693a7,
+  "nyp-contactme-bg":#2c3a46,
+  "nyp-contactme-form-border":#97a7b4,
+  "nyp-footer-bg":#25303a);
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
 @import "~bootstrap/scss/bootstrap";
@@ -226,6 +229,17 @@ header {
       }
     }
   }
+}
+
+.form-control {
+  border: 1px solid #97a7b4;
+  border-radius: none;
+
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border: 1px solid #97a7b4;
 }
 
 //媒体查询
