@@ -1,272 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>测试</title>
-    <script src="./main.js"></script>
-    <style>
-      *,
-      ul,
-      li {
-        padding: 0;
-        margin: 0;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>测试</title>
+  <script src="./main.js"></script>
+  <style>
+    *,
+    ul,
+    li {
+      padding: 0;
+      margin: 0;
+    }
+
+    .banner {
+      width: 600px;
+      height: 300px;
+      margin: 0 auto;
+      background-color: #ccc;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .carousel {
+      width: 2400px;
+      height: inherit;
+      display: flex;
+    }
+
+    .img {
+      width: 600px;
+      height: inherit;
+    }
+
+    .img:nth-child(1) {
+      background: #ccc url("assets/img/bg/bg_slider1.jpg") no-repeat center center/cover;
+    }
+
+    .img:nth-child(2) {
+      background: url("assets/img/bg/bg_slider2.jpg") no-repeat center center / cover;
+    }
+
+    .img:nth-child(3) {
+      background: url("assets/img/bg/bg_slider3.jpg") no-repeat center center / cover;
+    }
+
+    .img:nth-child(4) {
+      background: url("assets/img/bg/bg_slider1.jpg") no-repeat center center / cover;
+    }
+
+    /* 左边按钮 */
+    .left,
+    .right {
+      font-weight: bold;
+      font-size: 30px;
+      height: 30px;
+      width: 30px;
+      line-height: 30px;
+      padding-left: 4px;
+      background-color: #ccc;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .right {
+      right: 0;
+    }
+
+    ul {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-100%);
+    }
+
+    ul li {
+      float: left;
+      list-style: none;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: darkgray;
+      margin: 0 3px;
+    }
+
+    ul li span {
+      display: block;
+      line-height: 20px;
+      text-align: center;
+    }
+
+    ul li.active {
+      background-color: red;
+    }
+  </style>
+  <script>
+    /**
+     * 轮播图原理：
+     * 一、实现主体功能：
+     *    1、设置幕布宽为所有图片的宽度
+     *    2、让图片横向排列，设overflow:hidden
+     *    3、设置left-magin来让图片移动
+     *    
+     *
+     * 二、实现拓展功能：
+     *  功能拓展1：左右按钮切换图片
+     *          a、实现单张图片的移动，从0到-600px：
+     *              使用setInterval实现
+     *              注：不能一直移动，因为最后需要有停顿几秒
+     * 
+     *  功能拓展2：鼠标点击数字，显示相应的图片
+     * 
+     *  功能拓展3：自动显示选中的轮播图数字
+     * 
+     *  功能拓展4：使用setInterval实现每2秒切换一次图片
+     * 
+     *  功能拓展4：鼠标移动到轮播图上以后，显示鼠标悬浮的轮播图，轮播图停止移动
+     *              即：清楚timer
+     *  功能拓展5：鼠标移出轮播图，轮播图自动开始轮播
+     *              即：调用自动轮播function
+     *
+     *
+     *
+     *
+     */
+
+    window.onload = () => {
+      var timer = null;
+      const carousel = document.querySelector(".carousel");
+      const banner = document.querySelector(".banner");
+      const leftBtn = document.querySelector(".left");
+      const rightBtn = document.querySelector(".right");
+      const ulList = document.querySelectorAll("li");
+      autoSlide();
+      //调用自动轮播
+      function autoSlide() {
+        timer = setInterval(function () {
+          rightBtn.click();
+        }, 2000)
       }
 
-      .banner {
-        width: 600px;
-        height: 300px;
-        margin: 0 auto;
-        background-color: #ccc;
-        position: relative;
-        overflow: hidden;
-      }
 
-      .carousel {
-        width: 2400px;
-        height: inherit;
-        display: flex;
-      }
+      //功能拓展1：鼠标移动到轮播图上以后，显示鼠标悬浮的轮播图，轮播图停止移动
+      banner.addEventListener("mouseover", function (e) {
+        clearTimer(timer);
+      });
 
-      .img {
-        width: 600px;
-        height: inherit;
-      }
+      //功能拓展2：鼠标移出轮播图，轮播图自动开始轮播
+      banner.addEventListener("mouseleave", function (e) {
+        autoSlide()
+      });
 
-      .img:nth-child(1) {
-        background: #ccc url("assets/img/bg/bg_slider1.jpg") no-repeat center
-          center/cover;
-      }
+      //功能拓展4：鼠标点击右边按钮切换图片
+      rightBtn.addEventListener("click", function () {
+        slideShowNext();
+        let index = document.querySelector(".active").getAttribute("index");
+        index = (index + 1) % 3
+        setIndicator(index);
+      });
+      //功能拓展3：鼠标点击左边按钮切换图片
+      leftBtn.addEventListener("click", function () {
+        slideShowPrev();
+        let index = document.querySelector(".active").getAttribute("index");
+        index = (index - 1 + 3) % 3
+        setIndicator(index);
+      })
 
-      .img:nth-child(2) {
-        background: url("assets/img/bg/bg_slider2.jpg") no-repeat center center /
-          cover;
-      }
-
-      .img:nth-child(3) {
-        background: url("assets/img/bg/bg_slider3.jpg") no-repeat center center /
-          cover;
-      }
-
-      .img:nth-child(4) {
-        background: url("assets/img/bg/bg_slider1.jpg") no-repeat center center /
-          cover;
-      }
-
-      /* 左边按钮 */
-      .left,
-      .right {
-        font-weight: bold;
-        font-size: 30px;
-        height: 30px;
-        width: 30px;
-        line-height: 30px;
-        padding-left: 4px;
-        background-color: #ccc;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-      }
-
-      .right {
-        right: 0;
-      }
-      ul {
-        position: absolute;
-        left: 50%;
-        bottom: 10px;
-        transform: translateX(-100%);
-      }
-      ul li {
-        float: left;
-        list-style: none;
-        color: #fff;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: darkgray;
-        margin: 0 3px;
-      }
-      ul li span {
-        display: block;
-        line-height: 20px;
-        text-align: center;
-      }
-      ul li.active {
-        background-color: red;
-      }
-    </style>
-    <script>
-      /**
-       * 轮播图原理：
-       * 一、实现主体功能：
-       *    1、设置幕布宽为所有图片的宽度
-       *    2、让图片横向排列，设overflow:hidden
-       *    3、设置left-magin来让图片移动
-       *    4、设置函数停止时间，让显示整张图片以后停止1.2s
-       *
-       * 二、实现拓展功能：
-       *  功能拓展1：鼠标移动到轮播图上以后，显示鼠标悬浮的轮播图，轮播图停止移动
-       *            即：计算位置，清楚timer
-       *  功能拓展2：鼠标移出轮播图，轮播图自动开始轮播
-       *            即：清楚timer，调用轮播funciton
-       *  功能拓展3：左右按钮切换图片
-       *  功能拓展4：自动显示选中的轮播图数字
-       *  功能拓展5：鼠标点击数字，显示相应的图片
-       *
-       *
-       *
-       *
-       */
-
-      window.onload = () => {
-        var timer = null;
-        let left = 0; //记录每次mouseenter完整显示的图片的距离，用于鼠标悬停在左右button上，
-        const carousel = document.querySelector(".carousel");
-        const banner = document.querySelector(".banner");
-        const leftBtn = document.querySelector(".left");
-        const rightBtn = document.querySelector(".right");
-        // const ulList = document.getElementsByTagName("li");
-        const ulList = document.querySelectorAll("li");
-        // let marginLeft = 0;
-        let index = 0; //默认为0;用于标记当前显示的轮播图
-        //调用自动轮播
-        slide();
-
-        //主要功能：轮播
-        // function slide() {
-        //   if (left <= -1800) {
-        //     left = 0;
-        //   }
-        //   carousel.style.marginLeft = left + "px"; //实现换完图片，暂停1.2s
-        //   let n = left % 600 == 0 ? 1200 : 10;
-        //   left -= 30;
-        //   timer = setTimeout(function () {
-        //     slide();
-        //   }, n);
-        // }
-
-        // function slide() {
-        //   if (marginLeft <= -1800) {
-        //     marginLeft = 0;
-        //   }
-        //   carousel.style.marginLeft = marginLeft + "px"; //实现换完图片，暂停1.2s
-        //   let n = marginLeft % 600 == 0 ? 1200 : 10;
-        //   marginLeft -= 30;
-        //   timer = setTimeout(function () {
-        //     slide();
-        //   }, n);
-        // }
-
-        function slide() {
-          //拿到当前的left
-          let marginLeft = +carousel.style.marginLeft.slice(0, -2);
-          // debugger;
-          timer = setInterval(function () {
-            marginLeft = marginLeft <= -1800 ? 0 : marginLeft;
-            carousel.style.marginLeft = marginLeft + "px"; //实现换完图片，暂停1.2s
-            marginLeft -= 30;
-            // 功能拓展4：自动显示选中的轮播图数字
-            //拿到当前的Index
-            index = Math.floor(marginLeft / -600);
-            index = index == 3 ? 0 : index;
-            // index= index==3?
-            //根据当前的index设置背景色
-            ulList.forEach((u) => {
-              u.classList.remove("active");
-            });
-            ulList[index].classList.add("active");
-          }, 50);
-        }
-
-        //功能拓展1：鼠标移动到轮播图上以后，显示鼠标悬浮的轮播图，轮播图停止移动
-        banner.addEventListener("mouseover", function (e) {
-          //marginleft 为0是第一张照片
-          //0为第一张照片 -1 - -599第一和第2同时存在
-          //-600为第二张照片
-          //-1200是第三张照片- -1800
-          console.log("mouseover");
-          clearTimer();
-          index = e.target.getAttribute("index");
-          if (index == null) {
-            carousel.style.marginLeft = left + "px";
-            index = 0;
-          } else {
-            carousel.style.marginLeft = index * -600 + "px";
-            left = index * -600;
+      function slideShowNext() {
+        //拿到当前的left
+        let marginLeft = +carousel.style.marginLeft.slice(0, -2);
+        let timer = setInterval(function () {
+          marginLeft = marginLeft <= -1800 ? 0 : marginLeft;
+          marginLeft -= 30;
+          carousel.style.marginLeft = marginLeft + "px";
+          if (Number.isInteger((marginLeft) / 600)) {
+            clearInterval(timer)
+            return;
           }
-        });
+        }, 50);
+      }
 
-        //功能拓展2：鼠标移出轮播图，轮播图自动开始轮播
-        banner.addEventListener("mouseleave", function (e) {
-          console.log("mouseleave");
-          clearTimer();
-          slide();
+      function slideShowPrev() {
+        //拿到当前的left
+        let marginLeft = +carousel.style.marginLeft.slice(0, -2);
+        let timer = setInterval(function () {
+          marginLeft = marginLeft >= 0 ? -1800 : marginLeft;
+          marginLeft += 30;
+          carousel.style.marginLeft = marginLeft + "px";
+          if (Number.isInteger((marginLeft) / 600)) {
+            clearInterval(timer)
+            return;
+          }
+        }, 50);
+      }
+      // 功能拓展5：鼠标点击数字，显示相应的图片
+      ulList.forEach((u) => {
+        u.addEventListener("click", function (e) {
+          index = this.getAttribute("index");
+          left = index * -600;
+          setIndicator(index);
+          carousel.style.marginLeft = left + "px";
         });
+      });
 
-        //功能拓展3：鼠标点击左边按钮切换图片
-        leftBtn.addEventListener("click", function () {
-          let marginLeft = carousel.style.marginLeft.slice(0, -2);
-          let prevInd = Math.floor(-marginLeft / 600) - 1;
-          index = prevInd == -1 ? 2 : prevInd;
-          carousel.style.marginLeft = index * -600 + "px";
-          ulList.forEach((v) => {
-            v.classList.remove("active");
-          });
-
-          ulList[index].classList.add("active");
-        });
-        rightBtn.addEventListener("click", function () {
-          let marginLeft = carousel.style.marginLeft.slice(0, -2);
-          let nextInd = Math.floor(-marginLeft / 600) + 1;
-          index = nextInd == 3 ? 0 : nextInd;
-          carousel.style.marginLeft = index * -600 + "px";
-          ulList.forEach((v) => {
-            v.classList.remove("active");
-          });
-
-          ulList[index].classList.add("active");
-        });
-        // 功能拓展5：鼠标点击数字，显示相应的图片
+      //设置I标签的背景色
+      function setIndicator(index) {
+        //根据当前的index设置背景色
         ulList.forEach((u) => {
-          u.addEventListener("click", function (e) {
-            // console.log(e.target.)
-            index = this.getAttribute("index");
-            left = index * -600;
-            ulList.forEach((v) => {
-              v.classList.remove("active");
-            });
-            // e.classList.add("active");
-            ulList[index].classList.add("active");
-            carousel.style.marginLeft = left + "px";
-          });
+          u.classList.remove("active");
         });
+        ulList[index].classList.add("active");
+      }
 
-        function clearTimer() {
-          clearInterval(timer);
-          timer = null;
-        }
-      };
-    </script>
-  </head>
+      function clearTimer() {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+  </script>
+</head>
 
-  <body>
-    <div class="banner">
-      <div class="carousel">
-        <div index="0" class="img"></div>
-        <div index="1" class="img"></div>
-        <div index="2" class="img"></div>
-        <div index="3" class="img"></div>
-      </div>
-      <i class="left">&lt;</i>
-      <i class="right">&gt;</i>
-      <ul>
-        <li index="0" class="active"><span>1</span></li>
-        <li index="1"><span>2</span></li>
-        <li index="2"><span>3</span></li>
-      </ul>
+<body>
+  <div class="banner">
+    <div class="carousel">
+      <div index="0" class="img"></div>
+      <div index="1" class="img"></div>
+      <div index="2" class="img"></div>
+      <div index="3" class="img"></div>
     </div>
-  </body>
+    <i class="left">&lt;</i>
+    <i class="right">&gt;</i>
+    <ul>
+      <li index="0" class="active"><span>1</span></li>
+      <li index="1"><span>2</span></li>
+      <li index="2"><span>3</span></li>
+    </ul>
+  </div>
+</body>
+
 </html>
